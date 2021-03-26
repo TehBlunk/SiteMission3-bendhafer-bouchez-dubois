@@ -17,7 +17,7 @@
 		 <ul class="box">
                      <li class="picture"><a href="Page_appartement1.html"><img src="img/Appartements/Ap1.jpeg" alt="image1"></li></a>
 		      <li class="picture"><a href="Maison1.html"><img src="img/Maisons/Maison1-1.jpg" alt="image2"></li></a>
-			  <li class="picture"><a href="Local3.html"><img src="img/Local3-1.jpg" alt="image3"></li></a>
+			  <li class="picture"><a href="Local3.html"><img src="img/Locaux/Local3-1.jpg" alt="image3"></li></a>
 			  
 		 </ul>
 		
