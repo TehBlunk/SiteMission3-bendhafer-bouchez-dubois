@@ -77,4 +77,30 @@ function verifieAuthentification($connection, $login, $password) {
 
     return $iReturn;
  }
+function ajouteBien($objetPDO, $ref, $adresse, $type, $prix){
+
+    $pdoStat = $objetPDO->prepare('INSERT INTO bien (ref,prix,type,adresse) VALUES (:ref, :prix, :type, :adresse)');
+
+
+$pdoStat->bindValue (':ref', $ref);
+$pdoStat->bindValue (':adresse', $adresse);
+$pdoStat->bindValue (':type', $type);
+$pdoStat->bindValue (':prix', $prix);
+
+$insertIsOk = $pdoStat->execute();
+
+var_dump($insertIsOk);
+
+if($insertIsOk==true){
+
+    $message ='Le bien a été ajouté dans la bdd';
+
+}
+
+else{
+    $message = 'Echec de l\'ajout';
+}
+
+return $message;
+}
 ?>
