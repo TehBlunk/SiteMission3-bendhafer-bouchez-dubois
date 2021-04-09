@@ -32,7 +32,24 @@ function recupDonnee($pdo,$ref){
 
     return $bien;
 }
-
+function recupererImagePrecise($objetPdo,$id){
+    
+    $pdoStat= $objetPdo->prepare('SELECT * FROM image where bien.ref=:biencherche');
+    $bvc1=$pdoStat->bindValue(':biencherche',$id);
+    $execution=$pdoStat->execute();
+    $images=$pdoStat->fetchAll();
+    
+    return $images ;    
+}
+function recupererLesImages($objetPdo,$id){
+    
+    $pdoStat= $objetPdo->prepare('SELECT * FROM image where numeroBien=:biencherche');
+    $bvc1=$pdoStat->bindValue(':biencherche',$id);
+    $execution=$pdoStat->execute();
+    $images=$pdoStat->fetchAll();
+    
+    return $images ;    
+}
 function modifierBien($PDO, $adresse, $prix, $type, $ref){
     $monObjPdoStatement=$PDO->prepare("UPDATE bien SET adresse=:adresse, prix=:prix, type=:type WHERE ref=:ref");
     $monObjPdoStatement->bindValue(':adresse',$adresse);
