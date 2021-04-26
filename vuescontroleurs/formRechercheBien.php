@@ -1,12 +1,11 @@
 <?php
+//on insère le fichier qui contient les fonctions
+include_once '../modeles/mesFonctionsAccesBDD.php';
 
-$objetPdo = new PDO('mysql:host=localhost;dbname=bdd_immo','group1','groupe1');
+//appel de la fonction qui permet de se connecter à la base de données
+$lePdo = connexionBDD();
+$listeBien=donneLesBiens($lePdo);
 
-$pdoStat = $objetPdo->prepare('SELECT * FROM bien INNER JOIN TypeBien ON bien.ref=TypeBien.id ;');
-
-$executeIsOk = $pdoStat->execute();
-
-$biens= $pdoStat->fetchAll();
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +16,7 @@ $biens= $pdoStat->fetchAll();
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Site agence</title>
     
-	     <link rel="stylesheet" href="css/StyleProjet.css"  type="text/css"/>
+        <link rel="stylesheet" href="../css/StyleProjet.css"  type="text/css"/>
 		 
 		 
 		 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -26,31 +25,46 @@ $biens= $pdoStat->fetchAll();
 	 <!-- Corps -->
     <body>
 	  
-	    <header role="header"/>
-		
-		   <nav class="menu" role="navigation"/>
-		     <div class="m-right">
-			    <h1 class ="logo">AGENCE</h1>
-			</div>
-			<div class="m-left">
-			   <a href="Accueil.html"class="m-link"><i class="fa fa-home" aria-hidden="true"></i> Accueil</a>
-			   <a href="Acheter.html"class="m-link"><i class="fa fa-paste" aria-hidden="true"></i> Acheter</a>
-			   <a href="Page 3.html"class="m-link"><i class="fa fa-info-circle" aria-hidden="true"></i> Contact</a>
-			</div>
-	       </nav>
-		   
-		</header>
-		<h2>Liste des biens<h2>
-		<ul>
-			<?php foreach ($biens as $bien):?>
-				<li>
-					<?= $bien['libelle'] ?> de <?= $bien['adresse'] ?> <?=  $bien['prix'] ?>
-					
-				</li>
-			<?php endforeach; ?>
-		
+	  <?php include_once '../inc/menu.inc';?>
+            
+            <select name="type" id="type">                 
+                <option value=''>---</option>                 
+                <option value=1>Maison</option>                 
+                <option value=2>Appartement</option>                 
+                <option value=5>Immeuble</option>                 
+                <option value=3>Local</option>                 
+                <option value=4>Terrain</option>             </select>
+
+                        
+   
+		 <h2 class="titre">
+                     Liste des biens
+                     </h2>
+		<ul >
+
+			<?php 
+                       
+                        foreach ($listeBien as $bien){?>
+                        
+                            <li>
+                         
+					<?php echo $bien['ref'].' '.$bien['libelle'] .' de '. $bien['adresse'] . ' à '. $bien['prix'];
+                                       $listeImage= recupererLesImages($lePdo, $bien['ref']);?>
+                                       <div class="product-image"> 
+                                               
+                                        <?php  
+                                                                 
+                                        
+                                            echo '<a href="biens.php?ref='.$bien['ref'].'"><img src = "../img/'.$listeImage[0]['numeroBien'] .'-'. $listeImage[0]['numero'] .'.'. $listeImage[0]['extension'].'"></a>';?>
+                           </div> 
+                            </li>        
+				
+                        <?php } ?> 
+                        
+                    
+                </ul>
 		</body>
 		
 		
 		
-		</html>
+</html>
