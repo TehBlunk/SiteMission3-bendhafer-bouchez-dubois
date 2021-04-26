@@ -249,13 +249,7 @@ footer {
   flex-grow: 1;
   flex-basis: 16%;
 }
-.product-image img {
-  max-width: 500px;
-   border:5px solid #aed6f1;
-}
-.product-image:hover{
-      transform: scale(1.1,1.1);
-}	
+	
 .product-info {
   margin-top: auto;
 }
@@ -309,11 +303,9 @@ footer {
 form {
   position: relative;
   
-  width  : 740px;
-  height : 498px;
+  
   margin : 0 auto;
 
-  background: #FFF url(background.jpg);
 }
 form h1 {
   font : 1em "Lato", sans-serif;
@@ -343,4 +335,9 @@ form h1 {
 	background-color:white;
 }
 
-
+.product-image img{
+  max-width: 300px;
+   border:5px solid #aed6f1;
+   text-align: center;
+   margin:50px;
+}

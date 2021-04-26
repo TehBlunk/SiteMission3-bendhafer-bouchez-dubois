@@ -17,8 +17,70 @@ try {
 return $ObjConnexion;
 }
 
-function deconnexionBDD($cnx)
+
+function donneLesBiens($objetPdo)
 {
-    $cnx=null;
+        
+        
+	$pdoStat = $objetPdo->prepare('SELECT * FROM bien INNER JOIN TypeBien ON bien.type=TypeBien.id;');
+
+	$pdoStat->execute();
+
+	$biens= $pdoStat->fetchAll();
+	
+	return $biens;
+}
+function donneLesBiensType($objetPdo,$type,$tranche)
+{
+        
+        
+	$pdoStat = $objetPdo->prepare('SELECT * FROM bien INNER JOIN TypeBien ON bien.type=TypeBien.id WHERE bien.type=:type AND prix<:tranche;');
+        $pdoStat->bindValue(':type',$type);
+        $pdoStat->bindValue(':tranche',$tranche);
+	$pdoStat->execute();
+
+	$biens= $pdoStat->fetchAll();
+	
+	return $biens;
+}
+function recupererLesImages($objetPdo,$id){
+    
+    $pdoStat= $objetPdo->prepare('SELECT * FROM image where numeroBien=:biencherche');
+    $bvc1=$pdoStat->bindValue(':biencherche',$id);
+    $execution=$pdoStat->execute();
+    $images=$pdoStat->fetchAll();
+    
+    return $images ;    
+}
+function recupererImagePrecise($objetPdo,$id){
+    
+    $pdoStat= $objetPdo->prepare('SELECT * FROM image where bien.ref=:biencherche');
+    $bvc1=$pdoStat->bindValue(':biencherche',$id);
+    $execution=$pdoStat->execute();
+    $images=$pdoStat->fetchAll();
+    
+    return $images ;    
+}
+function connexionUser($objConnexion, $login, $passe) {
+    $monObjPdoStatement = $objConnexion->prepare("select passe from utilisateur where login = :login");
+    $bvc1 = $monObjPdoStatement->bindValue(':login', $login);
+
+    var_dump($bvc1);
+
+    $tab = $monObjPdoStatement->execute();
+    $test = $monObjPdoStatement->fetchAll();
+    $monObjPdoStatement->closeCursor();
+
+
+    if (sizeof($test) == 0) {
+        return false;
+    } else {
+        $passe_hash = $test[0]['passe'];
+        if (password_verify($passe, $passe_hash)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>

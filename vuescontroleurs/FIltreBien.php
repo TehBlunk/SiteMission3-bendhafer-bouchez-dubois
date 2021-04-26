@@ -24,21 +24,73 @@ $listeBien=donneLesBiens($lePdo);
      </head>
 	 <!-- Corps -->
     <body>
-	  
-	  <?php include_once '../inc/menu.inc';?>
-            
+	  <div class="filtre">
+	  <?php include_once '../inc/menu.inc';
+          if(isset($_GET["type"])&& isset($_GET["tranche"])==10){
+              $type=$_GET["type"];
+              $tranche=200000;
+          
+              
+             $listeBien= donneLesBiensType($lePdo, $type,$tranche);
+             
+
+          }
+          elseif(isset($_GET["type"])&& isset($_GET["tranche"])==20){
+              $type=$_GET["type"];
+              $tranche=300000;
+              
+              
+             $listeBien= donneLesBiensType($lePdo, $type,$tranche);
+             
+          }
+           elseif(isset($_GET["type"])&& isset($_GET["tranche"])==30){
+              $type=$_GET["type"];
+              $tranche=400000;
+              
+              
+             $listeBien= donneLesBiensType($lePdo, $type,$tranche);
+             
+          }
+           elseif(isset($_GET["type"])&& isset($_GET["tranche"])==40){
+              $type=$_GET["type"];
+              $tranche=500000;
+              
+              
+             $listeBien= donneLesBiensType($lePdo, $type,$tranche);
+             
+          }
+           elseif(isset($_GET["type"])&& isset($_GET["tranche"])==50){
+              $type=$_GET["type"];
+              $tranche=1000000;
+              
+              
+             $listeBien= donneLesBiensType($lePdo, $type,$tranche);
+             
+          }
+          ?>
+          <form action="" methode="GET">
+            <select name="tranche" id="tranche">                 
+                <option value="">---</option>                 
+                <option value=10>100 000 € à 200 000 € </option>                 
+                <option value=20>200 000 € à 300 000 €</option>                 
+                <option value=30>300 000 € à 400 000 €</option>                 
+                <option value=40>400 000 € à 500 000 €</option>                 
+                <option value=50>500 000 € à 1 000 000 €</option>             </select>
+        
+             <form action="" methode="GET">
             <select name="type" id="type">                 
-                <option value=''>---</option>                 
+                <option value="">---</option>                 
                 <option value=1>Maison</option>                 
                 <option value=2>Appartement</option>                 
                 <option value=5>Immeuble</option>                 
                 <option value=3>Local</option>                 
                 <option value=4>Terrain</option>             </select>
 
-                        
-   
+            <input type="submit" value="rechercher">                
+        </form>
+          </div>
 		 <h2 class="titre">
-                     Liste des biens
+                     Liste des biens 
                      </h2>
 		<ul >
 
