@@ -30,13 +30,16 @@ function donneLesBiens($objetPdo)
 	
 	return $biens;
 }
-function donneLesBiensType($objetPdo,$type,$tranche)
+function donneLesBiensType($objetPdo,$type,$tranche,$surface,$nbpiece,$jardin)
 {
         
         
-	$pdoStat = $objetPdo->prepare('SELECT * FROM bien INNER JOIN TypeBien ON bien.type=TypeBien.id WHERE bien.type=:type AND prix<:tranche;');
+	$pdoStat = $objetPdo->prepare('SELECT * FROM bien INNER JOIN TypeBien ON bien.type=TypeBien.id WHERE bien.type=:type AND prix<=:tranche AND surface>:suface AND nbpiece<:nbpiece AND jardin=:jardin;');
         $pdoStat->bindValue(':type',$type);
         $pdoStat->bindValue(':tranche',$tranche);
+        $pdoStat->bindValue(':surface',$surface);
+        $pdoStat->bindValue(':nbpiece',$nbpiece);
+        $pdoStat->bindValue(':jardin',$jardin);
 	$pdoStat->execute();
 
 	$biens= $pdoStat->fetchAll();

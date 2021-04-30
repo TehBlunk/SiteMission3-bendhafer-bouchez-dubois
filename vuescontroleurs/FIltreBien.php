@@ -26,56 +26,70 @@ $listeBien=donneLesBiens($lePdo);
     <body>
 	  <div class="filtre">
 	  <?php include_once '../inc/menu.inc';
-          if(isset($_GET["type"])&& isset($_GET["tranche"])==10){
+          if(isset($_GET["type"])&& isset($_GET["tranche"])==10 && isset($_GET["surface"]) && isset($_GET["piece"]) && isset($_GET["jardin"])){
               $type=$_GET["type"];
               $tranche=200000;
-          
+              $surface=$_GET["surface"];
+              $nbpiece=$_GET["piece"];
+              $jardin=$_GET["jardin"];
               
-             $listeBien= donneLesBiensType($lePdo, $type,$tranche);
+             $listeBien= donneLesBiensType($lePdo, $type,$tranche,$surface,$nbpiece,$jardin);
              
 
           }
-          elseif(isset($_GET["type"])&& isset($_GET["tranche"])==20){
+          elseif(isset($_GET["type"])&& isset($_GET["tranche"])==20 && isset($_GET["surface"]) && isset($_GET["piece"]) && isset($_GET["jardin"])){
               $type=$_GET["type"];
               $tranche=300000;
-              
-              
-             $listeBien= donneLesBiensType($lePdo, $type,$tranche);
+              $surface=$_GET["surface"];
+               $nbpiece=$_GET["piece"];
+                 $jardin=$_GET["jardin"];
+            $listeBien= donneLesBiensType($lePdo, $type,$tranche,$surface,$nbpiece,$jardin);
              
           }
-           elseif(isset($_GET["type"])&& isset($_GET["tranche"])==30){
+           elseif(isset($_GET["type"])&& isset($_GET["tranche"])==30 && isset($_GET["surface"])&& isset($_GET["piece"]) && isset($_GET["jardin"])){
               $type=$_GET["type"];
               $tranche=400000;
-              
-              
-             $listeBien= donneLesBiensType($lePdo, $type,$tranche);
+              $surface=$_GET["surface"];
+               $nbpiece=$_GET["piece"];
+                 $jardin=$_GET["jardin"];
+             $listeBien= donneLesBiensType($lePdo, $type,$tranche,$surface,$nbpiece,$jardin);
              
           }
-           elseif(isset($_GET["type"])&& isset($_GET["tranche"])==40){
+           elseif(isset($_GET["type"])&& isset($_GET["tranche"])==40 && isset($_GET["surface"]) && isset($_GET["piece"]) && isset($_GET["jardin"])){
               $type=$_GET["type"];
               $tranche=500000;
-              
-              
-             $listeBien= donneLesBiensType($lePdo, $type,$tranche);
+              $surface=$_GET["surface"];
+               $nbpiece=$_GET["piece"];
+                 $jardin=$_GET["jardin"];
+             $listeBien= donneLesBiensType($lePdo, $type,$tranche,$surface,$nbpiece,$jardin);
              
           }
-           elseif(isset($_GET["type"])&& isset($_GET["tranche"])==50){
+           elseif(isset($_GET["type"])&& isset($_GET["tranche"])==50 && isset($_GET["surface"]) && isset($_GET["piece"]) && isset($_GET["jardin"])){
               $type=$_GET["type"];
               $tranche=1000000;
-              
-              
-             $listeBien= donneLesBiensType($lePdo, $type,$tranche);
+              $surface=$_GET["surface"];
+               $nbpiece=$_GET["piece"];
+                 $jardin=$_GET["jardin"];
+             $listeBien= donneLesBiensType($lePdo, $type,$tranche,$surface,$nbpiece,$jardin);
              
           }
-          else{
-              $listeBien= donneLesBiens($lePdo);
+          elseif(isset($_GET["type"])&& isset($_GET["tranche"])==99){
+               $type=$_GET["type"];
+              $tranche=100000000000;
+              $surface=100;
+              $nbpiece=4;
+              $listeBien= donneLesBiensType($lePdo, $type,$tranche,$surface,$nbpiece,$jardin);
           }
+        
+        else {
+            $listeBien= donneLesBiens($lePdo);
+ }
           ?>
            
         
           <form action="" methode="GET">
             <select name="tranche" id="tranche">                 
-                <option value="">Prix</option>                 
+                <option value=99>Prix</option>                 
                 <option value=10>100 000 € à 200 000 € </option>                 
                 <option value=20>200 000 € à 300 000 €</option>                 
                 <option value=30>300 000 € à 400 000 €</option>                 
@@ -110,8 +124,8 @@ $listeBien=donneLesBiens($lePdo);
              <form action="" methode="GET">
             <select name="jardin" id="jardin">                 
                 <option value="">Jardin</option>                 
-                <option value=1>Avec</option>                 
-                <option value=2>Sans</option>                 
+                <option value='avec'>Avec</option>                 
+                <option value='sans'>Sans</option>                 
                
             <input type="submit" value="rechercher">                
         </form>
@@ -127,7 +141,7 @@ $listeBien=donneLesBiens($lePdo);
                         
                             <li>
                          
-					<?php echo $bien['ref'].' '.$bien['libelle'] .' de '. $bien['adresse'] . ' à '. $bien['prix'].' € de ' .$bien['surface']. ' m² avec '.$bien['nbpiece']. ' pieces '.$bien['jardin'].' jardin.' ;
+					<?php echo $bien['ref'].' '.$bien['libelle'] .' de '. $bien['adresse'] . ' à '. $bien['prix'].' € de ' .$bien['surface']. ' m² avec '.$bien['nbpiece']. ' pieces et '.$bien['jardin'].' jardin.' ;
                                        $listeImage= recupererLesImages($lePdo, $bien['ref']);?>
                                        <div class="product-image"> 
                                                
